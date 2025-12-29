@@ -1,4 +1,18 @@
 [
-    "Learn Python",
-    "Get a job :("
+    {
+        "task": "Learn Python",
+        "done": false,
+        "date": "2025-12-29 11:30"
+    },
+    {
+        "task": "Get a job",
+        "done": false,
+        "date": "2025-12-29 11:31"
+    },
+    {
+        "task": "Add states to the tasks",
+        "done": true,
+        "date": "2025-12-29 11:31",
+        "hecha": true
+    }
 ]

@@ -1,10 +1,13 @@
 import json
+from datetime import datetime
 ejecucion = True
 
+# Persists tasks by saving tasks[] onto the json file
 def saveTasks():
     with open("tasks.json", "w", encoding= "utf-8") as file:
         json.dump(tasks, file, indent=4, ensure_ascii=False)
-        
+  
+# Loads tasks from the json file to the array tasks      
 def loadTasks():
     global tasks
     try:
@@ -12,24 +15,53 @@ def loadTasks():
             tasks = json.load(file)
     except FileNotFoundError:
         tasks = []
+        
+def currentDate():
+    return datetime.now().strftime("%Y-%m-%d %H:%M")
 
-def printTareas():
-    for i, tarea in enumerate(tasks):
-        print(f"{i + 1}. {tarea}")
+def printTasks():
+    print(f"{' ':<3} {'STATE':<12} {'TASK':<30} {'DATE'}")
+    print("-" * 60)
+    for i, task in enumerate(tasks):
+        state = "done" if task['done'] else "in progress"
+        print(f"{i + 1:<1}. {state:<12} {task['task']:<30} ({task['date']})")
 
-def verTareas():
+def getTasks():
     if len(tasks) == 0:
         print("Aún no hay ninguna tarea, si tenes alguna agregala apretando 2")
     else:
-        printTareas()
+        printTasks()
         
-def agregarTarea():
-    tareaNueva = input("Agregá la tarea: ")
-    tasks.append(tareaNueva)
+def addTask():
+    taskText = input("Agregá la tarea: ").strip()
+    
+    newTask = {
+        "task": taskText,
+        "done": False,
+        "date": currentDate()
+        
+    }
+    
+    tasks.append(newTask)
     saveTasks()
     print("tarea agregada, si queres verla apreta 1")
     
-def eliminarTarea():
+def setDone():
+    if len(tasks) == 0:
+        print("No hay tareas")
+        return
+
+    printTasks()
+    try:
+        num = int(input("Qué tarea marcar como hecha? "))
+        tasks[num - 1]["done"] = True
+        saveTasks()
+        print("Tarea marcada como hecha")
+    except (ValueError, IndexError):
+        print("Número inválido")
+
+    
+def deleteTask():
     if len(tasks) == 0:
         print("No hay tareas para borrar")
         return
@@ -41,7 +73,7 @@ def eliminarTarea():
         print("tarea eliminada correctamente")
     except (ValueError, IndexError):
         print("invalid number")
-    printTareas()
+    printTasks()
     
     
 loadTasks()
@@ -49,21 +81,25 @@ while ejecucion:
     print("\n --- GESTOR DE TAREAS ---")
     print("1. Ver tareas")
     print("2. Agregar tarea")
-    print("3. Eliminar tarea")
-    print("4. Salir")
+    print("3. Marcar tarea como hecha")
+    print("4. Eliminar tarea")
+    print("5. Salir")
     
     eleccion = input("Elegí una opción: ")
     
     if eleccion == "1":
-        verTareas()
+        getTasks()
                 
     elif eleccion == "2":
-        agregarTarea()
+        addTask()
     
     elif eleccion == "3":
-        eliminarTarea()
-        
+        setDone()
+    
     elif eleccion == "4":
+        deleteTask()
+        
+    elif eleccion == "5":
         ejecucion = False
         print("chau!")
     
