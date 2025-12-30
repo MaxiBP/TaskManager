@@ -1,18 +1,17 @@
 [
     {
-        "task": "Learn Python",
+        "task": "learn python",
         "done": false,
-        "date": "2025-12-29 11:30"
+        "date": "2025-12-30 14:52"
     },
     {
-        "task": "Get a job",
+        "task": "add tests",
         "done": false,
-        "date": "2025-12-29 11:31"
+        "date": "2025-12-30 14:52"
     },
     {
-        "task": "Add states to the tasks",
-        "done": true,
-        "date": "2025-12-29 11:31",
-        "hecha": true
+        "task": "add cli-commands",
+        "done": false,
+        "date": "2025-12-30 14:53"
     }
 ]
