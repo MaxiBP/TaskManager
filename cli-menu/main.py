@@ -9,65 +9,66 @@ def print_tasks(tasks):
     print(f"{' ':<3} {'STATE':<12} {'TASK':<30} {'DATE'}")
     print("-" * 60)
     for i, task in enumerate(tasks):
-        state = "done" if task['done'] else "in progress"
+        state = "done" if task['done'] else "pendant"
         print(f"{i + 1:<1}. {state:<12} {task['task']:<30} ({task['date']})")
 
 def get_tasks(tasks):
     if len(tasks) == 0:
-        print("Aún no hay ninguna tarea, si tenes alguna agregala apretando 2")
+        print("No tasks yet! press 2 to add a new task")
     else:
         print_tasks(tasks)
         
 def create_task(tasks):
-    task_text = input("Agregá la tarea: ").strip()
+    task_text = input("Add task: ").strip()
     
     new_task = add_task(task_text, current_date())
     
     tasks.append(new_task)
     save_tasks(tasks)
-    print("tarea agregada, si queres verla apreta 1")
+    print("task added! press 1 to see it")
     
 def mark_done(tasks):
     if len(tasks) == 0:
-        print("No hay tareas")
+        print("no tasks to set!")
         return
 
     print_tasks(tasks)
     try:
-        num = int(input("Qué tarea marcar como hecha? "))
+        num = int(input("Which task have you completed?"))
         set_done(tasks, num - 1)
         save_tasks(tasks)
-        print("Tarea marcada como hecha")
+        print("Congrats! task done")
     except (ValueError, IndexError):
-        print("Número inválido")
+        print("The task doesn't exists :(")
 
     
 def del_task(tasks):
     if len(tasks) == 0:
-        print("No hay tareas para borrar")
+        print("No tasks left to delete")
         return
 
+    print_tasks(tasks)
     try:
-        tarea_remove = int(input("Que tarea quiere eliminar? "))
+        tarea_remove = int(input("which task you want to delete? "))
         delete_task(tasks, tarea_remove - 1)
         save_tasks(tasks)
-        print("tarea eliminada correctamente")
+        print("task deleted!")
     except (ValueError, IndexError):
-        print("invalid number")
-    print_tasks(tasks)
+        print("The task doesn't exists :(")
+    
     
 def run():
     ejecucion = True
     tasks =load_tasks()
     while ejecucion:
-        print("\n --- GESTOR DE TAREAS ---")
-        print("1. Ver tareas")
-        print("2. Agregar tarea")
-        print("3. Marcar tarea como hecha")
-        print("4. Eliminar tarea")
-        print("5. Salir")
+        print("\n --- TASK MANAGER ---")
+        print("1. List tasks")
+        print("2. Add a Task")
+        print("3. Set done")
+        print("4. Delete task")
+        print("5. Leave")
         
-        eleccion = input("Elegí una opción: ")
+        eleccion = input("Choose an option: ")
         
         if eleccion == "1":
             get_tasks(tasks)
@@ -83,7 +84,7 @@ def run():
             
         elif eleccion == "5":
             ejecucion = False
-            print("chau!")
+            print("Bye!")
         
         else:
-            print("opcion invalida")
+            print("We don't have that option... yet")
