@@ -1,22 +1,10 @@
-from core.task_service import add_task, set_done, delete_task
+from core.task_service import add_task, set_done, delete_task, print_tasks
 from core.task_repository import save_tasks, load_tasks
 from datetime import datetime
        
 def current_date():
     return datetime.now().strftime("%Y-%m-%d %H:%M")
 
-def print_tasks(tasks):
-    print(f"{' ':<3} {'STATE':<12} {'TASK':<30} {'DATE'}")
-    print("-" * 60)
-    for i, task in enumerate(tasks):
-        state = "done" if task['done'] else "pendant"
-        print(f"{i + 1:<1}. {state:<12} {task['task']:<30} ({task['date']})")
-
-def get_tasks(tasks):
-    if len(tasks) == 0:
-        print("No tasks yet! press 2 to add a new task")
-    else:
-        print_tasks(tasks)
         
 def create_task(tasks):
     task_text = input("Add task: ").strip()
@@ -71,7 +59,7 @@ def run():
         eleccion = input("Choose an option: ")
         
         if eleccion == "1":
-            get_tasks(tasks)
+            print_tasks(tasks)
                     
         elif eleccion == "2":
             create_task(tasks)
