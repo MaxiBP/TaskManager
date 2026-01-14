@@ -10,11 +10,6 @@
         "date": "2025-12-30 14:52"
     },
     {
-        "task": "add cli-commands",
-        "done": true,
-        "date": "2025-12-30 14:53"
-    },
-    {
         "task": "change language",
         "done": true,
         "date": "2025-12-30 15:26"
@@ -23,5 +18,10 @@
         "task": "Improve some details",
         "done": false,
         "date": "2025-12-31 12:19"
+    },
+    {
+        "task": "Learn react.js",
+        "done": false,
+        "date": "2026-01-14 17:09"
     }
 ]
